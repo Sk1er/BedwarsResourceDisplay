@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraftforge.fml.client.config.GuiSlider;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
@@ -33,11 +32,13 @@ public class EditElementScreen extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         DisplayElement element = currentElement;
+        if (element.getScale() != 1.0)
         GlStateManager.scale(element.getScale(), element.getScale(), 0);
         ElementRenderer.highlighted = element.isHighlighted();
         ElementRenderer.currentScale = element.getScale();
         ElementRenderer.color = element.getColor();
         element.drawForConfig();
+        if (element.getScale() != 1.0)
         GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
     }
 
@@ -73,20 +74,21 @@ public class EditElementScreen extends GuiScreen {
                 return pressed;
             }
         });
-        GuiSlider slider = new GuiSlider(3, 1, resolution.getScaledHeight() - 20, "Size: ", 10, 200, currentElement.getScale() * 210.0 / 2.0, (guiSlider) -> {
-        }) {
-            @Override
-            public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-                super.drawButton(mc, mouseX, mouseY);
-            }
-
-            @Override
-            public void updateSlider() {
-                super.updateSlider();
-                showDecimal = false;
-                currentElement.setScale(getValue() / 100.0);
-            }
-        };
+//        GuiSlider slider = new GuiSlider(3, 1, resolution.getScaledHeight() - 20, "Size: ", 10, 200, currentElement.getScale() * 210.0 / 2.0, (guiSlider) -> {
+//        }) {
+//            @Override
+//            public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+//                enabled = false;
+//                super.drawButton(mc, mouseX, mouseY);
+//            }
+//
+//            @Override
+//            public void updateSlider() {
+//                super.updateSlider();
+//                showDecimal = false;
+//                currentElement.setScale(getValue() / 100.0);
+//            }
+//        };
 
         buttonList.add(new GuiButton(8, 1, resolution.getScaledHeight() - 40, 80, 20, "Rotate color") {
             @Override
@@ -103,14 +105,14 @@ public class EditElementScreen extends GuiScreen {
         });
 
 
-        buttonList.add(slider);
+//        buttonList.add(slider);
         buttonList.add(new GuiButton(4, resolution.getScaledWidth() - 50, resolution.getScaledHeight() - 60, 50, 20, "Reset") {
             @Override
             public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
                 boolean pressed = super.mousePressed(mc, mouseX, mouseY);
                 if (pressed) {
                     currentElement.setScale(1);
-                    slider.setValue(100);
+//                    slider.setValue(100);
                     currentElement.setXloc(.5);
                     currentElement.setYloc(.5);
                     currentElement.setShadow(true);

@@ -72,11 +72,13 @@ public class ConfigGui extends GuiScreen {
         List<DisplayElement> elementList = mod.getDisplayElements();
         for (DisplayElement element : elementList) {
             try {
-                GlStateManager.scale(element.getScale(), element.getScale(), 0);
+                if (element.getScale() != 1.0)
+                    GlStateManager.scale(element.getScale(), element.getScale(), 0);
                 ElementRenderer.currentScale = element.getScale();
                 ElementRenderer.color = element.getColor();
                 element.drawForConfig();
-                GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
+                if (element.getScale() != 1.0)
+                    GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
             } catch (Exception e) {
 
             }
@@ -92,11 +94,13 @@ public class ConfigGui extends GuiScreen {
 
             Gui.drawRect((int) x1, (int) y1, (int) x2, (int) y2, Color.WHITE.getRGB());
             DisplayElement element = currentElement;
-            GlStateManager.scale(element.getScale(), element.getScale(), 0);
+            if (element.getScale() != 1.0)
+                GlStateManager.scale(element.getScale(), element.getScale(), 0);
             ElementRenderer.currentScale = element.getScale();
             ElementRenderer.color = element.getColor();
             element.drawForConfig();
-            GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
+            if (element.getScale() != 1.0)
+                GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
 //
         }
     }

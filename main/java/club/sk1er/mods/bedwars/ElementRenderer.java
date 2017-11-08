@@ -159,9 +159,9 @@ public class ElementRenderer {
     private void renderElements() {
 
 // Old render IF BEDWARS
-//        if (!mod.getSk1erMod().isHypixel() || !mod.getSk1erMod().isEnabled()) {
-//            return;
-//        }
+        if (!mod.getSk1erMod().isHypixel() || !mod.getSk1erMod().isEnabled()) {
+            return;
+        }
         WorldClient theWorld = Minecraft.getMinecraft().theWorld;
         if (theWorld != null) {
             Scoreboard scoreboard = theWorld.getScoreboard();
@@ -183,12 +183,14 @@ public class ElementRenderer {
                             try {
                                 List<DisplayElement> elementList = mod.getDisplayElements();
                                 for (DisplayElement element : elementList) {
-                                    GlStateManager.scale(element.getScale(), element.getScale(), 0);
+                                    if (element.getScale() != 1)
+                                        GlStateManager.scale(element.getScale(), element.getScale(), 0);
                                     highlighted = element.isHighlighted();
                                     currentScale = element.getScale();
                                     color = element.getColor();
                                     element.draw();
-                                    GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
+                                    if (element.getScale() != 1)
+                                        GlStateManager.scale(1.0 / element.getScale(), 1.0 / element.getScale(), 0);
                                 }
                             } catch (Exception e) {
 
