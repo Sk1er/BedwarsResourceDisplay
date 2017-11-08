@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sk1er-bedwars_resource_display",
+  "name": "Bedwars Resource Display Mod",
+  "description": "Displays resources and items for Hypixel Bedwars",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Sk1er"],
+  "credits": "Hypixel Admins for Bedwars, Erouax for OpenGL code",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
